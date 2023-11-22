@@ -1,17 +1,22 @@
-import { UserCard } from "./sections/users/UserCard";
-import { useUsers } from "./sections/users/useUsers";
+import { Route, Routes } from "react-router-dom";
+import { PrimeReactProvider } from "primereact/api";
+
+import { HomePage } from "./sections/home/HomePage";
+import { LocationsPage } from "./sections/locations/LocationsPage";
+import { NotFoundPage } from "./sections/not_found/NotFoundPage";
+import { OrdersPage } from "./sections/orders/OrdersPage";
 
 export function App() {
-	const users = useUsers();
-
 	return (
-		<div className="App">
-			<h3>⚡⚛️ Vite React Best Practices Template (by Codely)</h3>
-			<h2>Current users</h2>
-
-			{users.map((user) => (
-				<UserCard key={user.name} user={user} />
-			))}
-		</div>
+		<PrimeReactProvider>
+			<div className="App">
+				<Routes>
+					<Route path="*" element={<NotFoundPage />} />
+					<Route path="/" element={<HomePage />} />
+					<Route path="/locations" element={<LocationsPage />} />
+					<Route path="/orders/:name" element={<OrdersPage />} />
+				</Routes>
+			</div>
+		</PrimeReactProvider>
 	);
 }
